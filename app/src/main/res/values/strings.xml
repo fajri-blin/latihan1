@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">latihan1</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_detail">Detail</string>
 </resources>
