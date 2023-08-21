@@ -28,17 +28,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.latihan1.ui.theme.Latihan1Theme
 import com.example.latihan1.ui.theme.TopBar
-
-sealed class Screen(val route: String) {
-    object Login : Screen("login")
-    object Home : Screen("home")
-    object Detail : Screen("detail")
-}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,25 +42,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     AppNavigation() // Use AppNavigation here
                 }
             }
-        }
-    }
-}
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
-        composable(Screen.Login.route) {
-            LoginPage(navController = navController) // Pass the NavController
-        }
-        composable(Screen.Home.route){
-            HomeScreen()
-        }
-        composable(Screen.Detail.route){
-            DetailScreen()
         }
     }
 }
@@ -92,7 +68,7 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
             contentDescription = null, // Provide a meaningful description
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 100.dp),
+                .padding(top = 50.dp),
             contentScale = ContentScale.Fit
         )
         Spacer(modifier = Modifier.height(16.dp))

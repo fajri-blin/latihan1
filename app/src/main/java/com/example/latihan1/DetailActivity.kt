@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.latihan1.ui.theme.Latihan1Theme
+import com.example.latihan1.ui.theme.TopBar
 
 class Detail : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,7 @@ class Detail : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    TopBar(page = "Detail")
                     DetailScreen()
                 }
             }
@@ -32,7 +34,7 @@ class Detail : ComponentActivity() {
 @Composable
 fun DetailScreen(modifier: Modifier = Modifier) {
     Text(
-        text = "Hello !",
+        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue arcu, rhoncus eu rhoncus quis, consectetur consequat lectus. Mauris vel velit maximus, laoreet enim a, ultrices lorem. Nam commodo ac nisi sit amet pellentesque. Nulla facilisi. Proin ut justo convallis, efficitur odio quis, elementum ipsum. Vivamus ultrices massa in magna cursus, at eleifend lorem auctor. Pellentesque ut cursus dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque at sem iaculis neque varius ornare. !",
         modifier = modifier
     )
 }
@@ -41,6 +43,7 @@ fun DetailScreen(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview3() {
     Latihan1Theme {
+        TopBar(page = "Detail")
         DetailScreen()
     }
 }
