@@ -49,7 +49,7 @@ class Home : ComponentActivity() {
 @Composable
 fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4") // Replace this with your array of items
-    TopBar("Home")
+    TopBar("Home", true, navController) // Pass the NavController to TopBar
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
