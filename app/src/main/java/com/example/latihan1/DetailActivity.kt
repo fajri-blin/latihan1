@@ -3,16 +3,27 @@ package com.example.latihan1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.latihan1.ui.theme.Latihan1Theme
@@ -41,14 +52,68 @@ class Detail : ComponentActivity() {
 fun DetailScreen(navController: NavController, modifier: Modifier = Modifier) {
     TopBar("Home", true, navController) // Pass the NavController to TopBar
 
-    Column(
-        modifier = modifier.padding(start = 10.dp, end = 10.dp ,top = 100.dp)
+    val itemTitle = navController.currentBackStackEntry?.arguments?.getString("itemTitle") ?: ""
+    val description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue arcu, rhoncus eu rhoncus quis, consectetur consequat lectus..."
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = 90.dp, start = 10.dp, end = 10.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            RoundedBoxWithTitle(itemTitle)
+            Spacer(modifier = Modifier.height(8.dp))
+            RoundedBoxWithDescription(description)
+        }
+    }
+}
+
+@Composable
+fun RoundedBoxWithTitle(title: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(16.dp)
+            .clip(RoundedCornerShape(16.dp)) // Adjust the corner radius as needed
     ) {
         Text(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue arcu, rhoncus eu rhoncus quis, consectetur consequat lectus. Mauris vel velit maximus, laoreet enim a, ultrices lorem. Nam commodo ac nisi sit amet pellentesque. Nulla facilisi. Proin ut justo convallis, efficitur odio quis, elementum ipsum. Vivamus ultrices massa in magna cursus, at eleifend lorem auctor. Pellentesque ut cursus dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque at sem iaculis neque varius ornare. !"
+            text = title,
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimary
+            ),
+            modifier = Modifier.padding(8.dp)
         )
     }
 }
+
+@Composable
+fun RoundedBoxWithDescription(description: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(16.dp)
+            .clip(RoundedCornerShape(16.dp)) // Adjust the corner radius as needed
+    ) {
+        Text(
+            text = description,
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onPrimary
+            ),
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
+
 
 @Preview(showBackground = true)
 @Composable

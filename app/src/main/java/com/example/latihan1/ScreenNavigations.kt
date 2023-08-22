@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 sealed class Screen(val route: String) {
     object Login : Screen("login")
     object Home : Screen("home")
-    object Detail : Screen("detail")
+    object Detail : Screen("detail/{itemTitle}")
 }
 
 @Composable
@@ -23,7 +23,7 @@ fun AppNavigation() {
             HomeScreen(navController = navController)
         }
         composable(Screen.Detail.route){
-            DetailScreen()
+            DetailScreen(navController = navController)
         }
     }
 }

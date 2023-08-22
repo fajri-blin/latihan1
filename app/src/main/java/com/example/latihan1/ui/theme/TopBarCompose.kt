@@ -43,7 +43,7 @@ fun TopBar(page: String, showBackButton: Boolean = true, navController: NavContr
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White
+                        tint = Color.Black
                     )
                 }
             }
@@ -54,7 +54,7 @@ fun TopBar(page: String, showBackButton: Boolean = true, navController: NavContr
                 modifier = Modifier
                     .padding(16.dp),
                 textAlign = TextAlign.Start,
-                color = Color.White // Change the text color to white or any other contrasting color
+                color = Color.Black // Change the text color to white or any other contrasting color
             )
         }
 

@@ -20,8 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.latihan1.ui.theme.Latihan1Theme
@@ -63,12 +65,15 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             items(items) { item ->
                 Text(text = item,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.primary)
                         .padding(16.dp)
                         .clickable {
-                            navController.navigate(Screen.Detail.route)
+                            navController.navigate(Screen.Detail.route.replace("{itemTitle}", item))
                         }
                     )
                 Spacer(modifier = Modifier.height(8.dp))
