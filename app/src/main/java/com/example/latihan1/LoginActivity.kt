@@ -66,7 +66,7 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
     val passwordState = remember { mutableStateOf("") }
 
     // Creating a variable to store toggle state
-    var passwordVisible = remember { mutableStateOf(false) }
+    val passwordVisible = remember { mutableStateOf(false) }
 
     // State variables for validation error messages
     val usernameError = remember { mutableStateOf("") }
@@ -122,7 +122,15 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
                 .height(56.dp),
             isError = passwordError.value.isNotEmpty(),
             trailingIcon = {
-                // ...
+                val image = if (passwordVisible.value)
+                    Icons.Default.Visibility
+                else Icons.Default.VisibilityOff
+
+                val description = if (passwordVisible.value) "Hide password" else "Show password"
+
+                IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                    Icon(imageVector = image, contentDescription = description)
+                }
             }
         )
         // Display error message if password is empty
@@ -150,7 +158,6 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
