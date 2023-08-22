@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -66,6 +67,11 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
 
     // Creating a variable to store toggle state
     var passwordVisible = remember { mutableStateOf(false) }
+
+    // State variables for validation error messages
+    val usernameError = remember { mutableStateOf("") }
+    val passwordError = remember { mutableStateOf("") }
+
     TopBar("Login")
     Column(
         verticalArrangement = Arrangement.Center,
@@ -74,7 +80,7 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = imageResource,
-            contentDescription = null, // Provide a meaningful description
+            contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 50.dp),
@@ -83,46 +89,68 @@ fun LoginPage(navController: NavController, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = usernameState.value,
-            onValueChange = { usernameState.value = it },
+            onValueChange = {
+                usernameState.value = it
+                usernameError.value = "" // Clear any previous error message
+            },
             label = { Text(text = "Username") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(56.dp),
+            isError = usernameError.value.isNotEmpty(),
+            trailingIcon = {
+                // ...
+            }
         )
+        // Display error message if username is empty
+        if (usernameError.value.isNotEmpty()) {
+            Text(text = usernameError.value, color = Color.Red)
+        }
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = passwordState.value,
-            onValueChange = { passwordState.value = it },
+            onValueChange = {
+                passwordState.value = it
+                passwordError.value = "" // Clear any previous error message
+            },
             label = { Text(text = "Password") },
             singleLine = true,
             visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                val image = if (passwordVisible.value)
-                    Icons.Default.Visibility
-                else Icons.Default.VisibilityOff
-
-                // Localized description for accessibility services
-                val description = if (passwordVisible.value) "Hide password" else "Show password"
-
-                // Toggle button to hide or display password
-                IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                    Icon(imageVector = image, contentDescription = description)
-                }
-            },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(56.dp),
+            isError = passwordError.value.isNotEmpty(),
+            trailingIcon = {
+                // ...
+            }
         )
+        // Display error message if password is empty
+        if (passwordError.value.isNotEmpty()) {
+            Text(text = passwordError.value, color = Color.Red)
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.navigate(Screen.Home.route) },
+            onClick = {
+                // Validate and navigate
+                if (usernameState.value.isEmpty()) {
+                    usernameError.value = "Username is required"
+                }
+                if (passwordState.value.isEmpty()) {
+                    passwordError.value = "Password is required"
+                }
+                if (usernameState.value.isNotEmpty() && passwordState.value.isNotEmpty()) {
+                    // Perform login action or navigate
+                    navController.navigate(Screen.Home.route)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Login")
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
